@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Stackly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon for browser tab -->
+  <link rel="icon" type="image/png" href="stackly_icon-removebg-preview.png
+  "> <!-- Optional -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* Loader Wrapper Styles */
+    #loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 5s ease, visibility 5s ease;
+    }
+
+    /* Hide loader after page is loaded */
+    body.loaded #loader-wrapper {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Optional: smoother fade-out */
+    #loader-wrapper img {
+      width: 500px;
+      height: auto;
+    }
+     /* Header Styling */
+     header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 50px;
+            background: white;
+            position: sticky;
+            z-index: 100;
+        }
+        .logo img {
+            height: 50px;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links li {
+            position: relative;
+        }
+        .nav-links li a {
+            text-decoration: none;
+            color: #27477D;
+            font-weight: 700;
+            padding: 10px;
+        }
+        .nav-links li:hover a {
+            color: #007bff;
+        }
+        .icons {
+    display: flex;
+    gap: 15px;
+}
+
+.icons i {
+    background-color: #007bff; /* Background color for the icon */
+    color: white; /* Icon color */
+    padding: 10px; /* Adjust padding to control size */
+    border-radius: 50%; /* Makes it circular */
+    width: 35px; /* Set a fixed width */
+    height: 35px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Adjust icon size */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.icons i:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+        /* Hero Section with Carousel */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            overflow: hidden;
+        }
+        .carousel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .carousel img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel img.active {
+            opacity: 1;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            color: white;
+            text-align: left;
+            max-width: 500px;
+            background: rgb(0 0 0 / 0%);
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .hero-content h1 {
+            font-size: 45px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        /* Floating Menu Page */
+        .floating-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: right 0.5s ease-in-out;
+            z-index: 2000;
+        }
+        .floating-menu.active {
+            right: 0;
+        }
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            text-align: right;
+            display: block;
+        }
+        .menu-content {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .menu-content img {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        .menu-content p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .social-icons i {
+            font-size: 18px;
+            color: #007bff;
+        }
+        .contact-info {
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+        }
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #007bff;
+        }
+        /*footer page*/
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .footer div {
+            flex: 1;
+            padding: 0 20px;
+        }
+        h3 {
+            border-bottom: 2px solid #00aaff;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .contact-info i, .visit-info i {
+            color: #00aaff;
+            margin-right: 10px;
+        }
+        .gallery img {
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        .contact-info p, .visit-info p {
+            display: flex;
+            align-items: center;
+        }
+  </style>
+</head>
+<body>
+
+  <!-- Loader with GIF -->
+  <div id="loader-wrapper">
+    <img src="loader gif.gif" alt="Loading..."> <!-- 🔁 Replace with your GIF -->
+  </div>
+  <header>
+    <div class="logo">
+        <img src="logo-stackly (1).png" alt="Medixi Logo">
+    </div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="icons">
+        <i class="fas fa-bars" id="toggleMenu"></i>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="carousel">
+        <img src="bg image front.png" class="active" alt="Hero Image 1">
+        <img src="bg image 2.jpg" alt="Hero Image 2">
+        <img src="bg image 3.jpg" alt="Hero Image 3">
+    </div>
+    <div class="hero-content" id="hero-text">
+        <h1>Empowering Your Health</h1>
+        <p>Experience top-tier medical care with advanced treatment and compassionate professionals.</p>
+        <a href="#" class="btn">Learn More</a>
+    </div>
+</section>
+<div class="floating-menu" id="menuPage">
+    <span class="close-btn" id="closeMenu">&times;</span>
+    <div class="menu-content">
+        <img src="logo-stackly (1).png" alt=" Logo">
+        <p>Stackly is a healthcare platform providing advanced medical solutions with a focus on innovation and patient care.</p>
+        <div class="social-icons">
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-linkedin"></i>
+        </div>
+        <div class="contact-info">
+            <div><h1>Visiting Hours </h1></div>
+            <div><i class="fas fa-clock"></i> Mon - Fri: 8:00 am - 8:00 pm</div>
+            <div><i class="fas fa-clock"></i> Saturday: 9:00 am - 6:00 pm</div>
+            <div><i class="fas fa-clock"></i> Sunday: 9:00 am - 6:00 pm</div>
+            <div><i class="fas fa-phone"></i> +88012456789</div>
+            <div><i class="fas fa-envelope"></i> info@example.com</div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="about">
+        <h3>About Us</h3>
+        <p>Energistically reintermediate worldwide interfaces vis-a-vis emerging integrate leadership skills.</p>
+        <div class="contact-info">
+            <p><i class="fas fa-phone"></i> 693 2325 12456</p>
+            <p><i class="fas fa-envelope"></i> info@vecuro.com</p>
+        </div>
+    </div>
+    <div class="services">
+        <h3>Services</h3>
+        <p>&#x2022; Cardiovascular</p>
+        <p>&#x2022; Heart Checkup</p>
+        <p>&#x2022; Pathology Drag</p>
+        <p>&#x2022; Family Physician</p>
+        <p>&#x2022; Hematology Super</p>
+        <p>&#x2022; Laboratory Drag</p>
+    </div>
+    <div class="visit-info">
+        <h3>Visiting Hours</h3>
+        <p>Mon - Fri: 8:00 am - 8:00 pm</p>
+        <p>Saturday: 9:00 am - 6:00 pm</p>
+        <p>Sunday: 9:00 am - 6:00 pm</p>
+        <p><i class="fas fa-map-marker-alt"></i> <a href="#" style="color:#00aaff; text-decoration:none;">374 William S Canning Blvd, Fall River MA 2721</a></p>
+    </div>
+    <div class="gallery">
+        <h3>Gallery Posts</h3>
+        <div>
+            <img src="bg image 2.jpg" alt="Gallery Image">
+            <img src="bg image 3.jpg" alt="Gallery Image">
+            <img src="bg image front.png" alt="Gallery Image">
+            
+        </div>
+    </div>
+</footer>
+  <script>
+    window.addEventListener("load", function () {
+      document.body.classList.add("loaded");
+    });
+    let images = document.querySelectorAll(".carousel img");
+        let heroText = document.getElementById("hero-text");
+        let textContent = [
+            { h1: "Empowering Your Health", p: "Experience top-tier medical care with advanced treatment and compassionate professionals.", btn: "Learn More" },
+            { h1: "Advanced Medical Services", p: "Bringing you state-of-the-art technology for accurate diagnosis and treatment.", btn: "Our Services" },
+            { h1: "Your Well-being, Our Mission", p: "Providing dedicated healthcare support for you and your family.", btn: "Get Started" }
+        ];
+        let currentIndex = 0;
+
+        function changeSlide() {
+            images[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add("active");
+
+            // Update hero text
+            heroText.innerHTML = `
+                <h1>${textContent[currentIndex].h1}</h1>
+                <p>${textContent[currentIndex].p}</p>
+                <a href="#" class="btn">${textContent[currentIndex].btn}</a>
+            `;
+        }
+        setInterval(changeSlide, 3000); // Change image every 3 seconds
+         // Toggle Menu
+         document.getElementById("toggleMenu").addEventListener("click", function () {
+            document.getElementById("menuPage").classList.add("active");
+        });
+        
+        document.getElementById("closeMenu").addEventListener("click", function () {
+            document.getElementById("menuPage").classList.remove("active");
+        });
+        
+  </script>
+
+</body>
+</html>
